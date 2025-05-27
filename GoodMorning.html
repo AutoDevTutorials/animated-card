@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Realistic Pink Envelope</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #fff5f7;
+        font-family: Arial, sans-serif;
+        touch-action: manipulation;
+        padding: 20px;
+      }
+
+      .envelope-container {
+        text-align: center;
+        cursor: pointer;
+        perspective: 1000px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .envelope {
+        width: 100%;
+        height: 0;
+        padding-bottom: 60%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: all 0.5s ease;
+        margin: 0 auto;
+      }
+
+      .envelope-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, #ffb6c1, #ff9eb7);
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transform: translateZ(-5px);
+      }
+
+      .envelope-front {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, #ff9eb7, #ff85a2);
+        border-radius: 8px 8px 0 0;
+        transform-origin: top;
+        transition: all 0.5s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+      }
+
+      .envelope.open .envelope-front {
+        transform: rotateX(180deg);
+      }
+
+      .envelope-paper {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        background: white;
+        left: 5%;
+        top: 5%;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        z-index: 1;
+      }
+
+      .hidden-image {
+        width: 60%;
+        max-width: 120px;
+        height: auto;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 50%;
+        display: none;
+        border: 2px solid #ff9eb7;
+      }
+
+      .click-text {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #d23669;
+        font-size: clamp(14px, 4vw, 18px);
+      }
+
+      .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(210, 54, 105, 0.2);
+        z-index: 100;
+        display: none;
+        text-align: center;
+        border: 2px solid #ff9eb7;
+        width: 85%;
+        max-width: 300px;
+      }
+
+      .popup h2 {
+        color: #d23669;
+        margin-top: 0;
+        font-size: clamp(20px, 6vw, 24px);
+      }
+
+      .popup p {
+        color: #555;
+        font-size: clamp(14px, 4vw, 16px);
+        margin: 10px 0;
+      }
+
+      .popup button {
+        background-color: #ff7ba3;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 15px;
+        font-size: clamp(14px, 4vw, 16px);
+        transition: background-color 0.3s;
+        width: 100%;
+        max-width: 150px;
+      }
+
+      .popup button:hover {
+        background-color: #d23669;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 182, 193, 0.5);
+        z-index: 99;
+        display: none;
+      }
+
+      .stamp {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: #ff5c8d;
+        border-radius: 50%;
+        right: 10px;
+        top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+        border: 1px dashed white;
+        transform: translate(0, 0); /* Ensures perfect circle */
+      }
+
+      @media (max-width: 480px) {
+        .envelope {
+          max-width: 250px;
+        }
+
+        .stamp {
+          width: 25px;
+          height: 25px;
+          font-size: 8px;
+          right: 8px;
+          top: 8px;
+        }
+
+        .popup {
+          padding: 15px;
+        }
+
+        .popup button {
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="envelope-container">
+      <div class="envelope" id="envelope">
+        <div class="envelope-back"></div>
+        <div class="envelope-paper">
+          <img
+            src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+            alt="Surprise Image"
+            class="hidden-image"
+            id="hiddenImage"
+          />
+        </div>
+        <div class="envelope-front">
+          <div class="stamp">Message</div>
+        </div>
+      </div>
+      <p class="click-text">Tap the envelope to open</p>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+      <h2>Good morning!</h2>
+      <p>Wishing you a beautiful day filled with joy! 💖</p>
+      <button id="closePopup">OK</button>
+    </div>
+
+    <script>
+      const envelope = document.getElementById("envelope");
+      const hiddenImage = document.getElementById("hiddenImage");
+      const popup = document.getElementById("popup");
+      const overlay = document.getElementById("overlay");
+      const closePopup = document.getElementById("closePopup");
+
+      envelope.addEventListener(
+        "click",
+        function (e) {
+          e.preventDefault();
+          this.classList.toggle("open");
+
+          if (hiddenImage.style.display === "block") {
+            hiddenImage.style.display = "none";
+          } else {
+            hiddenImage.style.display = "block";
+
+            setTimeout(() => {
+              popup.style.display = "block";
+              overlay.style.display = "block";
+            }, 500);
+          }
+        },
+        { passive: false }
+      );
+
+      closePopup.addEventListener("click", function () {
+        popup.style.display = "none";
+        overlay.style.display = "none";
+      });
+
+      overlay.addEventListener("click", function () {
+        popup.style.display = "none";
+        this.style.display = "none";
+      });
+
+      document.addEventListener(
+        "dblclick",
+        function (e) {
+          e.preventDefault();
+        },
+        { passive: false }
+      );
+    </script>
+  </body>
+</html>

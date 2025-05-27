@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John Doe's Portfolio</title>
+    <style>
+      /* Modern color scheme and typography */
+      :root {
+        --primary-color: #3a86ff;
+        --secondary-color: #8338ec;
+        --accent-color: #ff006e;
+        --dark-color: #14213d;
+        --light-color: #f8f9fa;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: var(--light-color);
+        overflow-x: hidden;
+      }
+
+      /* Header & Navigation */
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 1.5rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+
+      header.sticky {
+        padding: 0.8rem 0;
+        background: rgba(20, 33, 61, 0.95);
+        backdrop-filter: blur(10px);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      nav a:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: width 0.3s ease;
+      }
+
+      nav a:hover:before {
+        width: 100%;
+      }
+
+      nav a:hover {
+        transform: translateY(-3px);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      /* Hero Section */
+      #hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(
+            135deg,
+            rgba(58, 134, 255, 0.9),
+            rgba(131, 56, 236, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80")
+            center/cover no-repeat;
+        padding-top: 60px;
+        position: relative;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        color: white;
+        animation: fadeIn 1s ease;
+      }
+
+      .hero-content h2 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 2rem;
+        background-color: var(--accent-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .scroll-down {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+      }
+
+      .scroll-down svg {
+        width: 30px;
+        height: 30px;
+        fill: white;
+      }
+
+      /* Sections common styles */
+      section {
+        padding: 100px 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+
+      section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      section h2::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent-color), transparent);
+        border-radius: 2px;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        display: inline-block;
+      }
+
+      .section-title h2::after {
+        left: 20%;
+        width: 60%;
+      }
+
+      /* About Section */
+      #about {
+        background-color: white;
+      }
+
+      .about-content {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-img {
+        flex: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform: rotate(3deg);
+        transition: var(--transition);
+      }
+
+      .about-img:hover {
+        transform: rotate(0);
+      }
+
+      .about-img img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+
+      .skill-tag {
+        background-color: #f0f0f0;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .skill-tag:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      /* Projects Section */
+      #projects {
+        background-color: #f9f9f9;
+      }
+
+      .projects-filter {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .filter-btn {
+        background: none;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 25px;
+        transition: var(--transition);
+        background-color: white;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .project.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .project:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .project-image {
+        height: 200px;
+        background-color: #ddd;
+        background-size: cover;
+        background-position: center;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(58, 134, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .project-image:hover .project-overlay {
+        opacity: 1;
+      }
+
+      .project-overlay a {
+        color: white;
+        background: var(--accent-color);
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transform: translateY(20px);
+        transition: var(--transition);
+      }
+
+      .project-image:hover .project-overlay a {
+        transform: translateY(0);
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project h3 {
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .project p {
+        margin-bottom: 1.5rem;
+        color: #666;
+      }
+
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .project-tag {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+      }
+
+      /* Contact Section */
+      #contact {
+        background: linear-gradient(to right, #fff 50%, var(--dark-color) 50%);
+      }
+
+      .contact-container {
+        display: flex;
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-info {
+        flex: 1;
+        padding: 3rem;
+      }
+
+      .contact-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--dark-color);
+      }
+
+      .contact-info p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .contact-links {
+        margin-top: 2rem;
+      }
+
+      .contact-link {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .contact-link:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+      }
+
+      .contact-link svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 1rem;
+      }
+
+      .contact-form {
+        flex: 1;
+        background-color: var(--dark-color);
+        padding: 3rem;
+        color: white;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        outline: none;
+      }
+
+      .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .submit-btn:hover {
+        background-color: #ff4d8d;
+        transform: translateY(-3px);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark-color);
+        color: white;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .social-links a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        transition: var(--transition);
+        opacity: 0;
+        z-index: -1;
+      }
+
+      .social-links a:hover:before {
+        opacity: 1;
+      }
+
+      .social-links a:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0) translateX(-50%);
+        }
+        40% {
+          transform: translateY(-15px) translateX(-50%);
+        }
+        60% {
+          transform: translateY(-7px) translateX(-50%);
+        }
+      }
+
+      .animated {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .animated.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .about-content {
+          flex-direction: column;
+        }
+
+        #contact {
+          background: white;
+        }
+
+        .contact-container {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        nav ul {
+          position: fixed;
+          top: -100%;
+          left: 0;
+          width: 100%;
+          background: var(--dark-color);
+          flex-direction: column;
+          align-items: center;
+          padding: 2rem 0;
+          transition: var(--transition);
+          opacity: 0;
+          z-index: 999;
+        }
+
+        nav ul.active {
+          top: 70px;
+          opacity: 1;
+        }
+
+        .hero-content h2 {
+          font-size: 2.5rem;
+        }
+
+        section {
+          padding: 70px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <div class="container">
+        <div class="header-content">
+          <h1>John Doe</h1>
+          <button class="hamburger" aria-label="Menu">☰</button>
+          <nav>
+            <ul id="nav-menu">
+              <li><a href="#hero" class="nav-link">Home</a></li>
+              <li><a href="#about" class="nav-link">About</a></li>
+              <li><a href="#projects" class="nav-link">Projects</a></li>
+              <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h2>Hello, I'm John Doe</h2>
+            <p>
+              I'm a passionate Web Developer specializing in creating impactful
+              digital experiences.
+            </p>
+            <a href="#projects" class="btn">View My Work</a>
+          </div>
+          <a href="#about" class="scroll-down">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+              />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="about-content">
+            <div class="about-img animated">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                alt="Profile Image"
+              />
+            </div>
+            <div class="about-text animated">
+              <h2>About Me</h2>
+              <p>
+                I'm a full-stack developer with 5 years of experience building
+                web applications. My passion lies in creating intuitive user
+                experiences and solving complex problems with clean, efficient
+                code.
+              </p>
+              <p>
+                I specialize in JavaScript frameworks like React and Vue.js,
+                with backend expertise in Node.js and Python. I believe in
+                continuous learning and staying updated with the latest web
+                technologies.
+              </p>
+              <div class="skill-tags">
+                <span class="skill-tag">Web Design</span>
+                <span class="skill-tag">UX/UI</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Figma</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <div class="section-title animated">
+            <h2>My Projects</h2>
+          </div>
+          <div class="projects-filter animated">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">
+              Web Development
+            </button>
+            <button class="filter-btn" data-filter="design">Design</button>
+            <button class="filter-btn" data-filter="app">Mobile Apps</button>
+          </div>
+          <div class="projects-container">
+            <div class="project animated show" data-category="web">
+              <div
+                class="project-image"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+                "
+              >
+                <div class="project-overlay">
+                  <a href="#" target="_blank">View Project</a>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3>E-commerce Platform</h3>
+                <p>
+                  A full-featured online store built with React, Node.js, and
+                  MongoDB. Features include product filtering, cart management,
+                  and secure checkout.
+                </p>
+                <div class="project-tags">
+                  <span class="project-tag">React</span>
+                  <span class="project-tag">Node.js</span>
+                  <span class="project-tag">MongoDB</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project animated show" data-category="design">
+              <div
+                class="project-image"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+                "
+              >
+                <div class="project-overlay">
+                  <a href="#" target="_blank">View Project</a>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3>UI Design System</h3>
+                <p>
+                  Comprehensive design system with reusable components, style
+                  guides, and documentation for consistent user interfaces
+                  across products.
+                </p>
+                <div class="project-tags">
+                  <span class="project-tag">Figma</span>
+                  <span class="project-tag">UI Design</span>
+                  <span class="project-tag">Design Systems</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project animated show" data-category="app">
+              <div
+                class="project-image"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+                "
+              >
+                <div class="project-overlay">
+                  <a href="#" target="_blank">View Project</a>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3>Fitness Tracker App</h3>
+                <p>
+                  Mobile application for tracking workouts and nutrition with
+                  React Native. Features include exercise logging, progress
+                  tracking, and social sharing.
+                </p>
+                <div class="project-tags">
+                  <span class="project-tag">React Native</span>
+                  <span class="project-tag">Firebase</span>
+                  <span class="project-tag">Mobile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <div class="section-title animated">
+            <h2>Get In Touch</h2>
+          </div>
+          <div class="contact-container animated">
+            <div class="contact-info">
+              <h3>Let's Connect</h3>
+              <p>
+                Feel free to reach out if you're looking for a collaborator,
+                have a question, or just want to connect.
+              </p>
+              <div class="contact-links">
+                <a href="mailto:john.doe@example.com" class="contact-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4.7l-8 5.334L4 8.7V6.297l8 5.333 8-5.333V8.7z"
+                    />
+                  </svg>
+                  john.doe@example.com
+                </a>
+                <a href="tel:+1234567890" class="contact-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20 10.999h2C22 5.869 18.127 2 12.99 2v2C17.052 4 20 6.943 20 10.999z"
+                    />
+                    <path
+                      d="M13 8c2.103 0 3 .897 3 3h2c0-3.225-1.775-5-5-5v2zm3.422 5.443a1.001 1.001 0 00-1.391.043l-2.393 2.461c-.576-.11-1.734-.471-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 00.043-1.391L6.859 3.513a1 1 0 00-1.391-.087l-2.17 1.861a1 1 0 00-.29.649c-.015.25-.301 6.172 4.291 10.766C11.305 20.707 16.323 21 17.705 21c.202 0 .326-.006.359-.008a.992.992 0 00.648-.291l1.86-2.171a1 1 0 00-.086-1.391l-4.064-3.696z"
+                    />
+                  </svg>
+                  +1 (234) 567-890
+                </a>
+                <a href="#" class="contact-link">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0zm-1.919 19.094H7.094V9.094h2.987v10zM8.531 7.734c-.91 0-1.648-.717-1.648-1.602 0-.887.738-1.605 1.648-1.605.91 0 1.648.717 1.648 1.605 0 .885-.739 1.602-1.648 1.602zm12.375 11.36h-2.984v-4.868c0-1.158-.42-1.95-1.471-1.95-1.104 0-1.738.885-1.738 1.95v4.868H11.73V9.094h2.984v1.324c.594-.79 1.325-1.324 2.486-1.324 2.513 0 3.707 1.706 3.707 4.605v5.395z"
+                    />
+                  </svg>
+                  LinkedIn Profile
+                </a>
+              </div>
+            </div>
+            <div class="contact-form">
+              <h3>Send a Message</h3>
+              <form id="contact-form">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                    placeholder="Your Name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    placeholder="Your Email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea
+                    id="message"
+                    class="form-control"
+                    placeholder="Your Message"
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="social-links">
+          <a href="#" target="_blank" title="LinkedIn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
+              />
+            </svg>
+          </a>
+          <a href="#" target="_blank" title="GitHub">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492 1.115.188-.146.293-.354.293-.567 0-.142-.05-.272-.15-.386.005-.106.016-.217.016-.328 0-.317-.102-.611-.282-.835.096-.237.096-.5 0-.737 0-.253-.143-.466-.429-.646C7.798 6.096 7.89 5.209 8.007 4.781c.129-.382.516-.667.938-.667.448 0 .845.301.966.746.045.18.12.352.207.512.144.292.37.51.642.635.06.027.123.042.187.042.149 0 .29-.057.402-.167.131-.118.199-.29.199-.482 0-.23-.08-.431-.238-.586.125-.139.271-.227.438-.27.028-.007.071-.007.109-.007.172 0 .335.063.457.177.253.232.389.562.389.92 0 .33-.072.637-.216.914-.144.277-.383.489-.663.62-.06.027-.122.042-.184.042-.171 0-.334-.063-.456-.177-.027-.024-.053-.051-.079-.079l-.012-.011c-.184-.167-.305-.418-.305-.711 0-.211.072-.412.199-.566.06-.072.144-.141.227-.206.088-.068.19-.13.303-.181.104-.048.214-.087.328-.118.093-.024.187-.039.282-.047.095-.007.188-.011.281-.011.36 0 .699.074 1.011.209.312.135.576.324.789.56.213.237.379.509.495.803.116.295.191.6.223.909.033.309.034.618.004.927-.03.309-.1.613-.208.91-.108.298-.255.573-.438.82-.183.248-.4.462-.648.64-.248.178-.525.318-.821.418-.297.1-.608.158-.926.171-.319.014-.637-.015-.95-.087-.313-.072-.607-.19-.876-.349-.269-.159-.506-.354-.706-.579-.2-.225-.36-.476-.477-.745-.117-.269-.188-.55-.211-.84-.023-.29.013-.58.105-.863.093-.282.234-.545.42-.777.186-.232.413-.428.676-.578.264-.15.557-.251.875-.299.319-.048.644-.042.971.018.327.06.637.177.918.347.281.17.524.39.719.647.195.258.342.547.434.855.092.308.13.627.111.953-.019.327-.095.647-.226.953-.131.307-.315.59-.547.842-.232.253-.508.47-.82.644-.313.175-.656.303-1.02.38-.365.077-.742.102-1.121.075-.38-.027-.752-.106-1.107-.236-.356-.13-.683-.308-.971-.528-.289-.221-.533-.48-.726-.769-.193-.29-.337-.606-.428-.937-.09-.332-.13-.673-.117-1.011.013-.339.078-.671.195-.984.117-.313.285-.6.5-.847.215-.247.473-.45.766-.6.293-.149.616-.243.955-.277.34-.034.682-.008 1.016.077.334.085.647.228.929.42.282.193.525.431.721.703.196.273.343.575.435.891.092.317.129.644.109.968-.02.325-.096.64-.227.933-.131.294-.314.56-.542.784-.228.225-.497.405-.794.528-.297.123-.618.188-.944.188-.171 0-.341-.016-.51-.047-.168-.031-.331-.077-.488-.137-.157-.06-.306-.135-.446-.223-.14-.088-.27-.19-.388-.303-.119-.113-.225-.238-.317-.373-.092-.135-.169-.28-.23-.433-.061-.153-.106-.314-.133-.481-.027-.167-.037-.338-.028-.509.008-.171.033-.34.075-.504.041-.164.1-.322.174-.471.074-.149.164-.288.267-.415.103-.127.22-.242.347-.342.127-.1.265-.185.411-.253.146-.068.3-.119.459-.15.159-.031.322-.043.487-.035.165.008.33.035.492.081.163.046.319.111.466.193.147.083.284.183.407.298.123.115.231.245.322.387.091.142.164.296.218.458.054.162.089.332.103.504.014.172.008.346-.018.518-.026.172-.071.34-.134.499-.063.159-.144.308-.24.445-.096.137-.208.261-.332.369-.124.108-.261.2-.408.273-.147.073-.303.127-.465.161-.162.034-.329.047-.497.039-.168-.008-.335-.036-.497-.083-.162-.047-.317-.113-.462-.197-.145-.084-.279-.186-.399-.303-.12-.117-.225-.25-.313-.396-.088-.146-.158-.304-.208-.47-.05-.167-.08-.341-.088-.517-.009-.176.004-.353.039-.526.035-.173.09-.34.163-.496.073-.156.164-.3.27-.429.106-.129.227-.242.36-.336.133-.094.277-.169.429-.223.152-.054.311-.086.473-.095.162-.009.325.005.486.041.161.036.317.093.463.169.146.076.281.171.401.283.12.112.224.241.309.383.085.142.151.296.196.457.045.161.069.328.072.495.003.167-.014.334-.052.497-.115z"
+              />
+            </svg>
+          </a>
+          <a href="#" target="_blank" title="Twitter">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+              />
+            </svg>
+          </a>
+          <a href="#" target="_blank" title="Dribbble">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm9.847 7.929c-.235-.75-1.543-2.025-3.073-2.79.644 1.642.776 3.407.405 5.109 1.474-.197 2.594-.768 3.245-1.543-.435-.534-.994-.986-1.577-1.776zm-3.397-2.501c-1.677-.675-3.13-.846-3.799-.846-.07 0-.136.003-.203.006.046.157.097.314.141.471.043.157.089.314.132.471 1.409.04 2.778.362 4.082 1.075-.563-.768-1.185-1.134-1.353-1.177zm-5.404-.272c-2.361 0-4.514.799-6.183 2.115-.077-.234-.154-.468-.222-.703.021-.022.041-.045.062-.068 2.365-2.345 6.042-2.666 8.807-1.441-.846-.293-1.719-.439-2.464-.439v-.464zm-7.775 4.286c-.193.616-.316 1.263-.362 1.932-1.474-.445-2.385-1.226-2.61-1.993.225-.656.675-1.286 1.339-1.786.551.536 1.165 1.038 1.633 1.847zm-2.75 3.386c0 5.523 3.879 10.138 9.038 11.293-.012-.168-.018-.336-.018-.506 0-3.237-1.265-6.188-3.329-8.379-2.756 1.005-5.691 1.495-8.618 1.495-.377 0-.753-.014-1.126-.041.028.177.061.354.093.531.32 1.751 1.387 3.306 2.96 4.607zm16.397-1.853c-.399 1.453-1.582 2.744-3.263 3.453.599-.9 1.056-1.886 1.35-2.939.293-1.054.422-2.169.382-3.325 1.058.413 1.823 1.219 1.823 2.219 0 .309-.062.603-.172.877-.11.274-.271.519-.471.722-.2.203-.439.365-.703.481-.264.116-.549.186-.846.206z"
+              />
+            </svg>
+          </a>
+        </div>
+        <p>&copy; 2023 John Doe. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Animate elements when scrolled into view
+      const animateOnScroll = () => {
+        const elements = document.querySelectorAll(".animated");
+        elements.forEach((el) => {
+          const elementPosition = el.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.2;
+
+          if (elementPosition < screenPosition) {
+            el.classList.add("show");
+          }
+        });
+      };
+
+      // Initialize animations on load and scroll
+      window.addEventListener("load", animateOnScroll);
+      window.addEventListener("scroll", animateOnScroll);
+
+      // Mobile menu toggle
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector("#nav-menu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking a link
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Sticky header
+      window.addEventListener("scroll", () => {
+        const header = document.getElementById("header");
+        header.classList.toggle("sticky", window.scrollY > 0);
+      });
+
+      // Project filtering
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const projects = document.querySelectorAll(".project");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Remove active class from all buttons
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          // Add active class to clicked button
+          button.classList.add("active");
+
+          const filter = button.getAttribute("data-filter");
+
+          projects.forEach((project) => {
+            if (
+              filter === "all" ||
+              project.getAttribute("data-category") === filter
+            ) {
+              project.style.display = "block";
+            } else {
+              project.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Form submission
+      const contactForm = document.getElementById("contact-form");
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Thank you for your message! I will get back to you soon.");
+        contactForm.reset();
+      });
+    </script>
+  </body>
+</html>
